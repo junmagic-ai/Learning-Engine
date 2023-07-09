@@ -1,3 +1,5 @@
+# Downloads youtube transcript if available, else download the MP3 audio track.
+
 import yt_dlp
 import os
 from youtube_transcript_api import YouTubeTranscriptApi

@@ -1,3 +1,5 @@
+# Some useful utility functions.. Not all are used...
+
 from PyPDF2 import PdfReader
 import textwrap, ebooklib
 from ebooklib import epub

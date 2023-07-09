@@ -1,15 +1,18 @@
+# Main function calls all the other scripts to transcribes and process the URLs in input.txt
+
 from get_apple_pod import download_apple_podcast 
 from check_inputs import identify_url_type
-import os, textwrap,csv, shutil
+import os, textwrap,csv
 from transcribe_audio import transcribe
-from read_gmail import get_urls_from_gmail
 from utils import open_file
 from extract_gems import extract_gems_from, extract_lines_with_labels
 
 if __name__ == '__main__':
 
-    # 1. Get unread emails from gmail and extract any URLs
-    urls = get_urls_from_gmail()
+    # 1. Get URLs of Apple podcasts or Youtube videos from input.txt
+    with open('input.txt', 'r') as f:
+        urls = f.readlines()
+    urls = [url.strip() for url in urls]
 
     # 2. Check each URL's type to determine processing method
     for url in urls:
@@ -20,7 +23,7 @@ if __name__ == '__main__':
         if (url_type =="Youtube"):
             print("youtube")
 
-    # 3. If audio, transcribe them, save in "Texts" and then delete the audio files
+    # 3. If audio, transcribe them, save in folder named "Texts" and then delete the audio files
     if not os.path.exists("Audio"):
         os.makedirs("Audio")
     folder_to_transcribe = "Audio"
@@ -41,7 +44,7 @@ if __name__ == '__main__':
         all_gems =""
         file_path = os.path.join(folder_to_process, file_name)
         text = open_file(file_path)
-        chunks = textwrap.wrap(text, 20000,break_long_words=False)
+        chunks = textwrap.wrap(text, 10000,break_long_words=False)
         for chunk in chunks:
             gems = extract_gems_from (chunk)
             all_gems += "\n".join(gems.splitlines())+ '\n\n'
@@ -51,7 +54,7 @@ if __name__ == '__main__':
         f.close()
 
     result_file = "Final_Gems.csv"
-    # Initialize the CSV file
+    # 5. Save the gems into the csv file
     with open(result_file, 'w', newline='', encoding='utf-8') as csvfile:
         csv_writer = csv.writer(csvfile)
         csv_writer.writerow(["Source", "Category", "Text"])

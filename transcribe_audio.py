@@ -1,3 +1,5 @@
+# Transcribes audio files to text using OpenAI Whisper (local install) 
+
 import torch
 import sys, os
 import numpy as np

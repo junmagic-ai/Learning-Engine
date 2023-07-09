@@ -1,4 +1,4 @@
-# Functions to download podcast episodes from Apple podcast
+# Downloads podcast episodes from Apple podcast
 
 import os
 import requests
