@@ -10,4 +10,5 @@ Using OpenAI's Whisper to transcribe Apple Podcasts and Youtube Videos into text
 4. Put your OpenAI API key in api_key.txt
 5. Put the URLs of the Apple Podcasts and / or Youtube videos in input.txt
 6. Run main.py in Terminal / Command Prompt:
-   ``` python main.py  
+   ```python main.py```
+7. Wait a while... and the gems will be saved in Final_Gems.csv
